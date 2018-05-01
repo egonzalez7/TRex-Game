@@ -14,7 +14,7 @@
 Board::Board(){
     objects.push_back(new TexRect("images/desert.png", -1, 1, 2, 2));
     objects.push_back(new TexRect("images/cactus.bmp", 0.8, -0.4, 0.2, 0.2));
-    objects.push_back(new TexRect("images/Dino.bmp", -0.8,-0.2,.45,.4));
+    objects.push_back(new TexRect("images/dog.png", -0.8,-0.2,.7,.35));
     //objects.push_back(new TexRect("hearts.bmp", 1, 1, 1, 1));
     
                       
