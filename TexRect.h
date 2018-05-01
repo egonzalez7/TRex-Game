@@ -12,7 +12,7 @@
 #include <SOIL.h>
 #endif
 
-class TexRect {
+class TexRect{
 public:
     float x;
     float y;

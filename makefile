@@ -11,7 +11,7 @@ PROGRAM = glutapp
 
 # OPTFLAGS = -g  # for debug
 OPTFLAGS =
-CC       = g++
+CC       = g++ -std=c++11
 CFLAGS   = -w $(OPTFLAGS) -ISOIL/includes
 
 ifeq ($(strip $(OS)),Darwin)
