@@ -4,7 +4,7 @@ static App* singleton;
 
 void app_timer(int value){
     
-    singleton->gameBoard->moveCactus();
+    singleton->game->moveCactus();
     singleton->redraw();
     glutTimerFunc(16, app_timer, value);
 //    if (singleton->game_over){
@@ -80,7 +80,7 @@ App::App(const char* label, int x, int y, int w, int h): GlutApp(label, x, y, w,
 */    
     
 
-    gameBoard = new Game ();
+    game = new Game ();
     app_timer(1);
 }
 /*
@@ -133,7 +133,7 @@ void App::draw() {
     ball->draw();
     gameOver->draw();
     */
-    gameBoard->draw();
+    game->draw();
     // We have been drawing everything to the back buffer
     // Swap the buffers to see the result of what we drew
     glFlush();
@@ -161,7 +161,7 @@ void App::idle(){
 void App::keyPress(unsigned char key) {
     if (key == 27){
         // Exit the app when Esc key is pressed
-        delete gameBoard;
+        delete game;
         /*
         delete ball;
         delete platform;
@@ -184,6 +184,6 @@ void App::keyPress(unsigned char key) {
         gameOver->stop();
         
          */
-        moving = true;
+      // moving = true;
     }
 }

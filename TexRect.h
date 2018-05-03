@@ -13,6 +13,7 @@
 #endif
 
 class TexRect{
+protected:
     float x;
     float y;
     float w;
@@ -32,7 +33,7 @@ public:
     void moveLeft(float rate=0.01);
     void moveRight(float rate=0.01);
     
-    float getX() const{
+    float getX() {
         return x;
     }
     float getY() const {

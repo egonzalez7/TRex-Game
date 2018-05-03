@@ -4,7 +4,7 @@
 #include "GlutApp.h"
 //#include "TexRect.h"
 //#include "AnimatedRect.h"
-#include "Board.h"
+#include "Game.h"
 
 class App: public GlutApp {
     // Maintain app state here
@@ -44,7 +44,7 @@ public:
     bool moving;
     bool game_over;
     */
-    Board* gameBoard;
+    Game* game;
     
 };
 

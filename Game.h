@@ -21,6 +21,8 @@ class Game{
     void reset();
     void AIPlay(int);
 public:
+    float x;
+    float y;
     TexRect* Cactus;
     TexRect* Desert;
     TexRect* Life1;

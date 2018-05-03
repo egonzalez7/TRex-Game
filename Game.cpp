@@ -12,12 +12,12 @@
 
 
 Game::Game(){
-    Desert = new TexRect("desert.png", -1, 1, 2, 2);
-    Cactus = new TexRect("cactus.png", 0.8, -0.3, 0.3, 0.3);
-    Dino = new TexRect("dino.bmp", 1,1,1,1);
-    Life1 = new TexRect("heart.png", 0.9, 0.95, 0.1, 0.1);
-    Life2 = new TexRect("heart.png", 0.8,0.95, 0.1, 0.1);
-    Life3 = new TexRect("heart.png", 0.7,0.95, 0.1, 0.1);
+    Desert = new TexRect("images/desert.png", -1, 1, 2, 2);
+    Cactus = new TexRect("images/cactus.png", 0.8, -0.3, 0.3, 0.3);
+    Dino = new TexRect("images/dino.bmp", 1,1,1,1);
+    Life1 = new TexRect("images/heart.png", 0.9, 0.95, 0.1, 0.1);
+    Life2 = new TexRect("images/heart.png", 0.8,0.95, 0.1, 0.1);
+    Life3 = new TexRect("images/heart.png", 0.7,0.95, 0.1, 0.1);
    
     
                       
@@ -32,7 +32,12 @@ Game::Game(){
 }
 
 void Game::moveCactus(){
-    Cactus->x -= 0.01;
+    
+    x = Cactus->getX();
+    x -= 0.01;
+   Cactus->setX(x);
+    
+
 }
 
 void Game::draw(){

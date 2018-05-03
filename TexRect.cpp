@@ -1,6 +1,7 @@
 #include "TexRect.h"
 
 
+
 TexRect::TexRect (const char* filename, float x=0, float y=0, float w=0.5, float h=0.5){
     
     glClearColor (0.0, 0.0, 0.0, 0.0);
@@ -23,8 +24,9 @@ TexRect::TexRect (const char* filename, float x=0, float y=0, float w=0.5, float
     
     this->x = x;
     this->y = y;
-    this->w = w;
-    this->h = h;
+     this->w = w;
+     this->h = h;
+   
     
     rising = false;
     movingLeft = true;
@@ -32,6 +34,7 @@ TexRect::TexRect (const char* filename, float x=0, float y=0, float w=0.5, float
     xinc = 0.01;
     yinc = 0.01;
 }
+
 
 void TexRect::moveUp(float rate){
     y += rate;
