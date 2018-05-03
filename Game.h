@@ -6,27 +6,37 @@
 //  Copyright © 2018 Angelo Kyrilov. All rights reserved.
 //
 
-#ifndef Board_h
-#define Board_h
+#ifndef Game_h
+#define Game_h
 
 #include <iostream>
 #include <vector>
 #include "TexRect.h"
 
-class Board{
-    std::vector<TexRect*> objects;
+class Game{
     bool gameOver;
     int countLives;
     int countTime;
     int AITime;
     void reset();
-    bool gameStart;
     void AIPlay(int);
 public:
-    Board();
-    void draw();
+    TexRect* Cactus;
+    TexRect* Desert;
+    TexRect* Life1;
+    TexRect* Life2;
+    TexRect* Life3;
+    TexRect* Dino;
+    TexRect* Game_Over;
     
-    ~Board();
+    Game();
+    
+    void draw();
+    bool gameStart;
+    void moveCactus();
+
+    ~Game();
 };
 
 #endif /* Board_hpp */
+
