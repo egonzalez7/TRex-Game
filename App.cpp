@@ -1,61 +1,66 @@
 #include "App.h"
-/*
+
 static App* singleton;
 
 void app_timer(int value){
-    if (singleton->game_over){
-        singleton->gameOver->advance();
-    }
     
-    if (singleton->moving){
-        singleton->ball->jump();
-        float bx = singleton->ball->x + singleton->ball->w/2;
-        float by = singleton->ball->y - singleton->ball->h + 0.1;
-        if (singleton->platform->contains(bx, by)){
-            singleton->ball->rising = true;
-            singleton->ball->yinc +=0.005;
-            singleton->ball->xinc = singleton->ball->yinc;
-            if (singleton->ball->yinc > 0.15){
-                singleton->ball->yinc = 0.15;
-            }
-        }
-        
-        if (singleton->ball->y - singleton->ball->h < -0.99){
-            singleton->moving = false;
-            singleton->game_over = true;
-            singleton->gameOver->animate();
-            
-        }
-    }
-    if (singleton->up){
-        singleton->platform->moveUp(0.05);
-    }
-    if (singleton->down){
-        singleton->platform->moveDown(0.05);
-    }
-    if (singleton->left){
-        singleton->platform->moveLeft(0.05);
-    }
-    if (singleton->right){
-        singleton->platform->moveRight(0.05);
-    }
-    
-    if (singleton->game_over){
-        singleton->redraw();
-        glutTimerFunc(100, app_timer, value);
-    }
-    else{
-        if (singleton->up || singleton->down || singleton->left || singleton->right || singleton->moving && !singleton->game_over){
-            singleton->redraw();
-            glutTimerFunc(16, app_timer, value);
-        }
-    }
+    singleton->gameBoard->moveCactus();
+    singleton->redraw();
+    glutTimerFunc(16, app_timer, value);
+//    if (singleton->game_over){
+//        singleton->gameOver->advance();
+//    }
+//    
+//    if (singleton->moving){
+//        singleton->ball->jump();
+//        float bx = singleton->ball->x + singleton->ball->w/2;
+//        float by = singleton->ball->y - singleton->ball->h + 0.1;
+//        if (singleton->platform->contains(bx, by)){
+//            singleton->ball->rising = true;
+//            singleton->ball->yinc +=0.005;
+//            singleton->ball->xinc = singleton->ball->yinc;
+//            if (singleton->ball->yinc > 0.15){
+//                singleton->ball->yinc = 0.15;
+//            }
+//        }
+//        
+//        if (singleton->ball->y - singleton->ball->h < -0.99){
+//            singleton->moving = false;
+//            singleton->game_over = true;
+//            singleton->gameOver->animate();
+//            
+//        }
+//    }
+//    if (singleton->up){
+//        singleton->platform->moveUp(0.05);
+//    }
+//    if (singleton->down){
+//        singleton->platform->moveDown(0.05);
+//    }
+//    if (singleton->left){
+//        singleton->platform->moveLeft(0.05);
+//    }
+//    if (singleton->right){
+//        singleton->platform->moveRight(0.05);
+//    }
+//    
+//    if (singleton->game_over){
+//        singleton->redraw();
+//        glutTimerFunc(100, app_timer, value);
+//    }
+//    else{
+//        if (singleton->up || singleton->down || singleton->left || singleton->right || singleton->moving && !singleton->game_over){
+//            singleton->redraw();
+//            glutTimerFunc(16, app_timer, value);
+//        }
+//    }
     
     
 }
-*/
+
 App::App(const char* label, int x, int y, int w, int h): GlutApp(label, x, y, w, h){
     // Initialize state variables
+    singleton = this;
     /*
     singleton = this;
     mx = 0.0;
@@ -72,10 +77,11 @@ App::App(const char* label, int x, int y, int w, int h): GlutApp(label, x, y, w,
     
     moving = true;
     game_over = false;
+*/    
     
+
+    gameBoard = new Game ();
     app_timer(1);
-*/
-    gameBoard = new Board ();
 }
 /*
 void App::specialKeyPress(int key){
@@ -165,6 +171,7 @@ void App::keyPress(unsigned char key) {
         */
         exit(0);
     }
+
     
     if (key == ' '){
         /*
@@ -175,7 +182,8 @@ void App::keyPress(unsigned char key) {
         ball->rising = false;
         game_over = false;
         gameOver->stop();
-        moving = true;
+        
          */
+        moving = true;
     }
 }
