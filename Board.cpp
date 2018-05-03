@@ -1,6 +1,6 @@
 #include <iostream>
 #include <thread>
-#include "Board.h"
+#include "Game.h"
 
 #if defined WIN32
 #include <freeglut.h>
@@ -11,11 +11,14 @@
 #endif
 
 
-Board::Board(){
-    objects.push_back(new TexRect("images/desert.png", -1, 1, 2, 2));
-    objects.push_back(new TexRect("images/cactus.bmp", 0.8, -0.4, 0.2, 0.2));
-    objects.push_back(new TexRect("images/dog.png", -0.8,-0.2,.7,.35));
-    //objects.push_back(new TexRect("hearts.bmp", 1, 1, 1, 1));
+Game::Game(){
+    Desert = new TexRect("desert.png", -1, 1, 2, 2);
+    Cactus = new TexRect("cactus.png", 0.8, -0.3, 0.3, 0.3);
+    Dino = new TexRect("dino.bmp", 1,1,1,1);
+    Life1 = new TexRect("heart.png", 0.9, 0.95, 0.1, 0.1);
+    Life2 = new TexRect("heart.png", 0.8,0.95, 0.1, 0.1);
+    Life3 = new TexRect("heart.png", 0.7,0.95, 0.1, 0.1);
+   
     
                       
     //all the objects
@@ -28,29 +31,41 @@ Board::Board(){
     
 }
 
-void Board::draw(){
-    for(int i = 0; i < objects.size(); i++){
-        objects[i]->draw();
-    }
+void Game::moveCactus(){
+    Cactus->x -= 0.01;
+}
+
+void Game::draw(){
+    Desert->draw();
+    Cactus->draw();
+    Dino->draw();
+    Life1->draw();
+    Life2->draw();
+    Life3->draw();
+    
     if(gameOver){
-        objects.push_back(new TexRect("game_over.png", -0.5, 0.5, 1, 1));
-        for(int i = 0; i < objects.size(); i++){
-            objects[i]->draw();
-        }
+        Game_Over = new TexRect("game_over.png", -0.5, 0.5, 1, 1);
+        Desert->draw();
+        Cactus->draw();
+        Dino->draw();
     }
     
 }
 
-void Board::reset(){
+void Game::reset(){
     
 }
 
-void Board::AIPlay(int AITime){
+void Game::AIPlay(int AITime){
     
 }
 
-Board::~Board(){
-    for(int i = 0; i < objects.size(); i++){
-        delete objects[i];
-    }
+Game::~Game(){
+    delete Desert;
+    delete Cactus;
+    delete Dino;
+    delete Life1;
+    delete Life2;
+    delete Life3;
+    delete Game_Over;
 }
