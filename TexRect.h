@@ -13,13 +13,13 @@
 #endif
 
 class TexRect{
-public:
     float x;
     float y;
     float w;
     float h;
-    GLuint texture_id;
+public:
 
+    GLuint texture_id;
 
     TexRect (const char*, float, float, float, float);
     
@@ -31,6 +31,35 @@ public:
     void moveDown(float rate=0.01);
     void moveLeft(float rate=0.01);
     void moveRight(float rate=0.01);
+    
+    float getX() const{
+        return x;
+    }
+    float getY() const {
+        return y;
+    }
+    float getW() const {
+        return w;
+    }
+    float getH() const {
+        return h;
+    }
+    
+    void setX(float x){
+        this->x = x;
+    }
+    void setY(float y){
+        this->y = y;
+    }
+    void setW(float w){
+        this->w = w;
+    }
+    void setH(float h){
+        this->h = h;
+    }
+    
+
+    
     
     void jump();
     
