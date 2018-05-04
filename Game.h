@@ -14,16 +14,16 @@
 #include "TexRect.h"
 
 class Game{
+    
     bool gameOver;
     int countLives;
     int countTime;
     int AITime;
-    void reset();
     void AIPlay(int);
+    void reset();
 public:
-    float x;
-    float y;
     TexRect* Cactus;
+    TexRect* Fiesta;
     TexRect* Desert;
     TexRect* Life1;
     TexRect* Life2;
@@ -33,12 +33,22 @@ public:
     
     Game();
     
-    void draw();
     bool gameStart;
+    void draw();
     void moveCactus();
-
+    void moveFiesta();
+    
     ~Game();
 };
 
-#endif /* Board_hpp */
+class Board {
+public:
+    void update(Game* game) {
+        game->draw();
+    }
+};
+
+
+
+#endif 
 
