@@ -3,8 +3,13 @@
 static App* singleton;
 
 void app_timer(int value){
+    singleton->gameBoard->moveCactus();
+    singleton->gameBoard->moveClouds();
+    singleton->gameBoard->movePowerUp();
     
-    singleton->game->moveCactus();
+    singleton->gameBoard->showPowerUp();
+    singleton->gameBoard->gameIsOver();
+    
     singleton->redraw();
     glutTimerFunc(16, app_timer, value);
 //    if (singleton->game_over){
