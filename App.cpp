@@ -11,6 +11,7 @@ void app_timer(int value){
     singleton->gameBoard->movePowerUp();
     
     singleton->gameBoard->showPowerUp();
+    singleton->game->moveDino();
     //singleton->gameBoard->gameIsOver();
     
     singleton->redraw();
@@ -166,6 +167,14 @@ void App::idle(){
 
 }
 */
+
+void App::keyUp(unsigned char key){
+	if (key == ' '){
+	
+		game->dinoFall();
+	}
+}
+
 void App::keyPress(unsigned char key) {
     if (key == 27){
         // Exit the app when Esc key is pressed
@@ -182,6 +191,7 @@ void App::keyPress(unsigned char key) {
 
     
     if (key == ' '){
+        game->dinoJump();
         /*
         ball->x = 0;
         ball->y = 0.67;
