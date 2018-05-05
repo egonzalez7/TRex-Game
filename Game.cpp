@@ -45,15 +45,32 @@ void Game::moveCactus(){
         x = 1.1;
     }
     
-
+    
     if(x2 < -1.1){
         x2 = 2.5;
     }
+
+    if(countLives == 3){
+        x -= 0.01;
+        x2 -= 0.01;
+        Cactus1->setX(x);
+        Cactus2->setX(x2);
+    }
     
-    x -= 0.01;
-    x2 -= 0.01;
-    Cactus1->setX(x);
-    Cactus2->setX(x2);
+    if(countLives == 2){
+        x -= 0.02;
+        x2 -= 0.02;
+        Cactus1->setX(x);
+        Cactus2->setX(x2);
+    }
+    
+    if(countLives == 1){
+        x -= 0.03;
+        x2 -= 0.03;
+        Cactus1->setX(x);
+        Cactus2->setX(x2);
+    }
+    
     
 }
 
@@ -65,9 +82,21 @@ void Game::movePowerUp(){
             timer = 0;
             powerUpOn = false;
         }
-    
-        x -= 0.01;
-        FiestaCactus->setX(x);
+        
+        if(countLives == 3){
+            x -= 0.01;
+            FiestaCactus->setX(x);
+        }
+        
+        if(countLives == 2){
+            x -= 0.02;
+            FiestaCactus->setX(x);
+        }
+        
+        if(countLives == 1){
+            x -= 0.03;
+            FiestaCactus->setX(x);
+        }
     }
 }
 
@@ -88,7 +117,9 @@ void Game::moveClouds(){
     
     x -= 0.001;
     Cloud2->setX(x);
+    
 }
+
 
 void Game::draw(){
     Desert->draw();
@@ -119,12 +150,18 @@ void Game::reset(){
 
 void Game::showPowerUp(){
     random = rand();
-    for(int i = 0; i < 10000; i++){
+    for(int i = 0; i < 1000; i++){
         timer++;
     }
     
     if (FiestaCactus->getX() > 1.0 && timer > random && countLives < 3){
         powerUpOn = true;
+    }
+}
+
+void Game::gameIsOver(){
+    if(countLives == 0){
+        Game_Over->draw();
     }
 }
 
