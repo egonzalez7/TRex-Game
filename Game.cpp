@@ -43,6 +43,9 @@ Game::Game(){
     Time = 0;
     
     powerUpOn = true;
+    jumping = false;
+    shouldFall = false;
+    canJump = true;
     
 }
 
@@ -150,6 +153,50 @@ void Game::movePowerUp(){
         Fiesta->setX(x);
     }
 }
+
+void Game::dinoJump(){
+    if (canJump){
+    if (!shouldFall)
+    jumping = true;
+    canJump = false;
+}
+}
+
+void Game::dinoFall(){
+    canJump = true;
+    jumping = false;
+   
+    
+}
+
+void Game::moveDino(){
+ 
+    if (jumping)
+    {
+        if(y < -0.1 & !shouldFall)
+        {
+            y = Dino->getY();
+            y += 0.1;
+            Dino->setY(y);
+	    
+        }
+	else {
+	    shouldFall = true;
+	    jumping = false;
+	}
+    }
+    else {
+        if (y > -0.35){
+            y = Dino->getY();
+            y -= 0.1;
+            Dino->setY(y);
+        }
+	else {
+		shouldFall = false;
+	}
+    }
+}
+
 
 void Game::draw(){
     
