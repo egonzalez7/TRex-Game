@@ -64,6 +64,9 @@ public:
     void moveClouds();
     void movePowerUp();
     void showPowerUp();
+    void moveDino();
+    void dinoJump();
+    void dinoFall();
     //void gameIsOver();
     
     ~Game();
