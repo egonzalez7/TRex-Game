@@ -26,7 +26,10 @@ class Game{
     void reset();
     bool powerUpOn;
     int timer;
+    bool jumping;
+    bool canJump;
 public:
+    bool shouldFall;
     float random;
     
     TexRect* Cactus1;
