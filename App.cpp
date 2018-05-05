@@ -3,12 +3,15 @@
 static App* singleton;
 
 void app_timer(int value){
+    
+    singleton->gameBoard->moveDesert();
+    singleton->gameBoard->moveGround();
     singleton->gameBoard->moveCactus();
     singleton->gameBoard->moveClouds();
     singleton->gameBoard->movePowerUp();
     
     singleton->gameBoard->showPowerUp();
-    singleton->gameBoard->gameIsOver();
+    //singleton->gameBoard->gameIsOver();
     
     singleton->redraw();
     glutTimerFunc(16, app_timer, value);
@@ -85,7 +88,7 @@ App::App(const char* label, int x, int y, int w, int h): GlutApp(label, x, y, w,
 */    
     
 
-    game = new Game ();
+    gameBoard = new Game();
     app_timer(1);
 }
 /*
@@ -138,7 +141,7 @@ void App::draw() {
     ball->draw();
     gameOver->draw();
     */
-    game->draw();
+    gameBoard->draw();
     // We have been drawing everything to the back buffer
     // Swap the buffers to see the result of what we drew
     glFlush();
@@ -166,7 +169,7 @@ void App::idle(){
 void App::keyPress(unsigned char key) {
     if (key == 27){
         // Exit the app when Esc key is pressed
-        delete game;
+        delete gameBoard;
         /*
         delete ball;
         delete platform;
@@ -189,6 +192,12 @@ void App::keyPress(unsigned char key) {
         gameOver->stop();
         
          */
-      // moving = true;
     }
+    
+    if (key == 13) {
+        //Start the Game and & or Reset?
+        //...insert code
+        //gameStart = true;
+    }
+    
 }
