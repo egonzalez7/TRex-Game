@@ -22,38 +22,49 @@ class Game{
     
    public:
     bool shouldFall;
-    float x,x2;
+    float x,x2,x3;
     float y;
     float random;
    // std::vector <TexRect*> lifes;
     std::deque<TexRect*> lifes;
+    AnimatedRect* Dino;
+    
+    TexRect* Ground;
+    TexRect* Ground2;
+    
+    TexRect* Desert;
+    TexRect* Desert2;
+    
     TexRect* Cactus1;
     TexRect* Cactus2;
     TexRect* FiestaCactus;
-    TexRect* Desert;
- //   TexRect* Dino;
+ 
     TexRect* Cloud;
     TexRect* Cloud2;
+    
+    AnimatedRect* Numbers;
+    
     TexRect* Life1;
     TexRect* Life2;
     TexRect* Life3;
-    AnimatedRect* Dino;
-     AnimatedRect* Numbers;
+    
+
     AnimatedRect* Game_Over;
-   // AnimatedRect* Dino;
+
     Game();
     void draw();
     void moveCactus();
     void moveClouds();
+    void moveGround();
+    void moveDesert();
     void movePowerUp();
     void showPowerUp();
-    void lifeChanges();
+   // void lifeChanges();
     void moveDino();
     void dinoJump();
     void dinoFall();
     void gameIsOver();
 
-   // void moveCactus();
     
 
     ~Game();

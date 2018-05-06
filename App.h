@@ -2,8 +2,7 @@
 #define App_hpp
 
 #include "GlutApp.h"
-//#include "TexRect.h"
-//#include "AnimatedRect.h"
+
 #include "Game.h"
 
 class App: public GlutApp {
@@ -18,33 +17,7 @@ public:
     void draw();
     void keyPress(unsigned char key);
     void keyUp(unsigned char key);
-    /*
-    
-    void mouseDown(float x, float y);
-    void mouseDrag(float x, float y);
-    
-    void specialKeyPress(int key);
-    
-    void specialKeyUp(int key);
-    
-    void idle();
-    
-    TexRect* ball;
-    
-    TexRect* platform;
-    
-    TexRect* background;
-    
-    AnimatedRect* gameOver;
-    
-    bool up;
-    bool down;
-    bool left;
-    bool right;
-    
-    bool moving;
-    bool game_over;
-    */
+  
     
     bool game_over;
     void idle();

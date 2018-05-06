@@ -4,9 +4,14 @@ static App* singleton;
 
 void app_timer(int value){
     
+    singleton->game->moveDesert();
+    singleton->game->moveGround();
     singleton->game->moveCactus();
     singleton->game->moveClouds();
-     singleton->game->Dino->advance();
+    singleton->game->Dino->advance();
+    singleton->game->movePowerUp();
+    singleton->game->showPowerUp();
+    singleton->game->moveDino();
    //singleton->game->Numbers->advance();
     
     singleton->redraw();
@@ -90,23 +95,7 @@ void score(int value){
 App::App(const char* label, int x, int y, int w, int h): GlutApp(label, x, y, w, h){
     // Initialize state variables
     singleton = this;
-    /*
-    singleton = this;
-    mx = 0.0;
-    my = 0.0;
-    
-    background = new TexRect("images/sky.png", -1, 1, 2, 2);
-    ball = new TexRect("images/mushroom.png", 0, 0.67, 0.2, 0.2);
-
-    platform = new TexRect("images/board.png", 0, -0.7, 0.6, 0.2);
-    
-    gameOver = new AnimatedRect("images/game_over.png", 7, 1, -1.0, 0.8, 2, 1.2);
-    
-    up = down = left = right = false;
-    
-    moving = true;
-    game_over = false;
-*/    
+  
     
  game_over = false;
     game = new Game ();
@@ -157,13 +146,9 @@ void App::draw() {
     // Set up the transformations stack
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    /*
-    background->draw();
-    platform->draw();
-    ball->draw();
-    gameOver->draw();
-    */
+
     game->draw();
+    
     // We have been drawing everything to the back buffer
     // Swap the buffers to see the result of what we drew
     glFlush();
@@ -185,45 +170,28 @@ void App::mouseDrag(float x, float y){
 }
 */
 void App::idle(){
-   game->lifeChanges();
+  // game->lifeChanges();
 //    // dinoRun(1);
 //   // score(1);
 //   // game->Dino->advance();
 //
 }
-
+void App::keyUp(unsigned char key){
+    if (key == ' '){
+        
+        game->dinoFall();
+    }
+}
 void App::keyPress(unsigned char key) {
     if (key == 27){
         // Exit the app when Esc key is pressed
         delete game;
-        /*
-        delete ball;
-        delete platform;
-        delete gameOver;
-        delete background;
-        delete this;
-        */
+  
         exit(0);
-    }
-void App::keyUp(unsigned char key){
-        if (key == ' '){
-            
-            game->dinoFall();
-        }
     }
     
     if (key == ' '){
         game->dinoJump();
-        /*
-        ball->x = 0;
-        ball->y = 0.67;
-        ball->yinc = 0.01;
-        ball->xinc = 0.01;
-        ball->rising = false;
-        game_over = false;
-        gameOver->stop();
         
-         */
-      // moving = true;
     }
 }
