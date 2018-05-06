@@ -43,6 +43,32 @@ public:
     void animate();
     
     void stop();
+   
+    float getX() {
+        return x;
+    }
+    float getY() const {
+        return y;
+    }
+    float getW() const {
+        return w;
+    }
+    float getH() const {
+        return h;
+    }
+    
+    void setX(float x){
+        this->x = x;
+    }
+    void setY(float y){
+        this->y = y;
+    }
+    void setW(float w){
+        this->w = w;
+    }
+    void setH(float h){
+        this->h = h;
+    }
 };
 
 #endif

@@ -115,7 +115,9 @@ void TexRect::draw(){
     
     glDisable(GL_TEXTURE_2D);
 }
-
+//void TexRect::clear() {
+//    
+//}
 
 bool TexRect::contains(float mx, float my){
     return mx >= x && mx <= x+w && my <= y && my >= y - h;

@@ -1,85 +1,63 @@
-//
-//  Board.hpp
-//  glutapp
-//
-//  Created by Mia Parelius on 4/28/18.
-//  Copyright © 2018 Angelo Kyrilov. All rights reserved.
-//
 
 #ifndef Game_h
 #define Game_h
 
 #include <iostream>
-#include <vector>
 #include "TexRect.h"
 #include "AnimatedRect.h"
+#include <vector>
+#include "deque"
+
 
 class Game{
-    float x;
-    float x2;
-    float x3;
     bool gameOver;
     int countLives;
+    bool gameStart;
     int countTime;
-    int Time;
-    void AIPlay(int);
     void reset();
-    bool powerUpOn;
     int timer;
+    bool powerUpOn;
     bool jumping;
     bool canJump;
-public:
-    bool shouldFall;
-    float random;
     
+   public:
+    bool shouldFall;
+    float x,x2;
+    float y;
+    float random;
+   // std::vector <TexRect*> lifes;
+    std::deque<TexRect*> lifes;
     TexRect* Cactus1;
     TexRect* Cactus2;
-    TexRect* Fiesta;
-    TexRect* Ground;
-    TexRect* Ground2;
-    TexRect* Ground3;
-    TexRect* Ground4; //the one that stays in place. Desert 4 too.
+    TexRect* FiestaCactus;
     TexRect* Desert;
-    TexRect* Desert2;
-    TexRect* Desert3;
-    TexRect* Desert4;
+ //   TexRect* Dino;
+    TexRect* Cloud;
+    TexRect* Cloud2;
     TexRect* Life1;
     TexRect* Life2;
     TexRect* Life3;
     AnimatedRect* Dino;
-    //TexRect* Game_Over;
-    TexRect* Cloud;
-    TexRect* Cloud2;
-    
-    //AnimatedRect* Game_Over;
-    
+     AnimatedRect* Numbers;
+    AnimatedRect* Game_Over;
+   // AnimatedRect* Dino;
     Game();
-    
-    bool gameStart;
     void draw();
-    void moveDesert();
     void moveCactus();
-    void moveGround();
-    void moveFiesta();
     void moveClouds();
     void movePowerUp();
     void showPowerUp();
+    void lifeChanges();
     void moveDino();
     void dinoJump();
     void dinoFall();
-    //void gameIsOver();
+    void gameIsOver();
+
+   // void moveCactus();
     
+
     ~Game();
 };
-
-class Board{
-public:
-    void update(Game* game) {
-        game->draw();
-    }
-};
-
-
 
 #endif 
 

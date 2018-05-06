@@ -4,23 +4,43 @@ static App* singleton;
 
 void app_timer(int value){
     
-    singleton->gameBoard->moveDesert();
-    singleton->gameBoard->moveGround();
-    singleton->gameBoard->moveCactus();
-    singleton->gameBoard->moveClouds();
-    singleton->gameBoard->movePowerUp();
-    
-    singleton->gameBoard->showPowerUp();
-    singleton->game->moveDino();
-    //singleton->gameBoard->gameIsOver();
+    singleton->game->moveCactus();
+    singleton->game->moveClouds();
+     singleton->game->Dino->advance();
+   //singleton->game->Numbers->advance();
     
     singleton->redraw();
+    
     glutTimerFunc(16, app_timer, value);
-//    if (singleton->game_over){
-//        singleton->gameOver->advance();
+
+    
+   // if (singleton->game_over){
+     //   singleton->game->dino();
+    //}
+//    if (singleton->game){
+//            singleton->game->advance();
 //    }
-//    
-//    if (singleton->moving){
+//
+  
+    
+}
+//void dinoRun(int value){
+//      if (!singleton->game->Dino->done()){ // added done into TexRect.h
+//            singleton->game->Dino->advance(); // added advanced into TexRect.h
+//            singleton->redraw();
+//            glutTimerFunc(32, dinoRun, value);
+//      }
+//}
+void score(int value){
+    if (!singleton->game->Numbers->done()){ // added done into TexRect.h
+        singleton->game->Numbers->advance(); // added advanced into TexRect.h
+        singleton->redraw();
+        glutTimerFunc(2, score, value);
+    }
+}
+//        else{
+//            singleton->redraw();
+//        }
 //        singleton->ball->jump();
 //        float bx = singleton->ball->x + singleton->ball->w/2;
 //        float by = singleton->ball->y - singleton->ball->h + 0.1;
@@ -65,7 +85,7 @@ void app_timer(int value){
 //    }
     
     
-}
+//}
 
 App::App(const char* label, int x, int y, int w, int h): GlutApp(label, x, y, w, h){
     // Initialize state variables
@@ -88,9 +108,10 @@ App::App(const char* label, int x, int y, int w, int h): GlutApp(label, x, y, w,
     game_over = false;
 */    
     
-
-    gameBoard = new Game();
+ game_over = false;
+    game = new Game ();
     app_timer(1);
+   // dinoRun(1);
 }
 /*
 void App::specialKeyPress(int key){
@@ -142,7 +163,7 @@ void App::draw() {
     ball->draw();
     gameOver->draw();
     */
-    gameBoard->draw();
+    game->draw();
     // We have been drawing everything to the back buffer
     // Swap the buffers to see the result of what we drew
     glFlush();
@@ -162,23 +183,19 @@ void App::mouseDrag(float x, float y){
     my = y;
 
 }
-
-void App::idle(){
-
-}
 */
-
-void App::keyUp(unsigned char key){
-	if (key == ' '){
-	
-		game->dinoFall();
-	}
+void App::idle(){
+   game->lifeChanges();
+//    // dinoRun(1);
+//   // score(1);
+//   // game->Dino->advance();
+//
 }
 
 void App::keyPress(unsigned char key) {
     if (key == 27){
         // Exit the app when Esc key is pressed
-        delete gameBoard;
+        delete game;
         /*
         delete ball;
         delete platform;
@@ -188,7 +205,12 @@ void App::keyPress(unsigned char key) {
         */
         exit(0);
     }
-
+void App::keyUp(unsigned char key){
+        if (key == ' '){
+            
+            game->dinoFall();
+        }
+    }
     
     if (key == ' '){
         game->dinoJump();
@@ -202,12 +224,6 @@ void App::keyPress(unsigned char key) {
         gameOver->stop();
         
          */
+      // moving = true;
     }
-    
-    if (key == 13) {
-        //Start the Game and & or Reset?
-        //...insert code
-        //gameStart = true;
-    }
-    
 }

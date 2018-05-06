@@ -45,8 +45,11 @@ public:
     bool moving;
     bool game_over;
     */
-    Game* game;
     
+    bool game_over;
+    void idle();
+    bool moving;
+    Game* game;
 };
 
 #endif

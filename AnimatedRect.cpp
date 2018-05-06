@@ -42,7 +42,7 @@ bool AnimatedRect::done() {
 
 
 void AnimatedRect::draw(){
-    if (animating){
+    //if (animating){
         glBindTexture( GL_TEXTURE_2D, texture_map_id );
         glEnable(GL_TEXTURE_2D);
         glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
@@ -76,8 +76,8 @@ void AnimatedRect::draw(){
         glEnd();
         
         glDisable(GL_TEXTURE_2D);
-    }
-}
+  //  }
+} 
 
 void AnimatedRect::incY(){
     y+=0.01;

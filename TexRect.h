@@ -32,6 +32,14 @@ public:
     void moveDown(float rate=0.01);
     void moveLeft(float rate=0.01);
     void moveRight(float rate=0.01);
+    void clear();
+    void jump();
+    
+    bool rising;
+    bool movingLeft;
+    
+    float xinc;
+    float yinc;
     
     float getX() {
         return x;
@@ -62,13 +70,7 @@ public:
 
     
     
-    void jump();
-    
-    bool rising;
-    bool movingLeft;
-   
-    float xinc;
-    float yinc;
+
 };
 
 #endif
