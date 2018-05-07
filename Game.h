@@ -20,13 +20,15 @@ class Game{
     bool jumping;
     bool canJump;
     
+    bool overlapping;
+    float cinc;
+    
    public:
     bool shouldFall;
-    float x,x2,x3;
+    float x,x2;
     float y;
     float random;
-   // std::vector <TexRect*> lifes;
-    std::deque<TexRect*> lifes;
+    std::deque<TexRect*> lives;
     AnimatedRect* Dino;
     
     TexRect* Ground;
@@ -43,6 +45,10 @@ class Game{
     TexRect* Cloud2;
     
     AnimatedRect* Numbers;
+    AnimatedRect* Numbers2;
+    AnimatedRect* Numbers3;
+    AnimatedRect* Numbers4;
+    AnimatedRect* Numbers5;
     
     TexRect* Life1;
     TexRect* Life2;
@@ -59,11 +65,13 @@ class Game{
     void moveDesert();
     void movePowerUp();
     void showPowerUp();
-   // void lifeChanges();
+    void liveChanges();
     void moveDino();
     void dinoJump();
     void dinoFall();
     void gameIsOver();
+ 
+    
 
     
 

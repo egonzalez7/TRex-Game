@@ -8,20 +8,19 @@ void app_timer(int value){
     singleton->game->moveGround();
     singleton->game->moveCactus();
     singleton->game->moveClouds();
-    singleton->game->Dino->advance();
+   // singleton->game->Dino->advance();
     singleton->game->movePowerUp();
     singleton->game->showPowerUp();
     singleton->game->moveDino();
-   //singleton->game->Numbers->advance();
     
     singleton->redraw();
     
-    glutTimerFunc(16, app_timer, value);
+    glutTimerFunc(25, app_timer, value);
 
     
-   // if (singleton->game_over){
-     //   singleton->game->dino();
-    //}
+//   if (singleton->game_over){
+//        singleton->game->dino();
+//  }
 //    if (singleton->game){
 //            singleton->game->advance();
 //    }
@@ -36,61 +35,34 @@ void app_timer(int value){
 //            glutTimerFunc(32, dinoRun, value);
 //      }
 //}
+
+bool tenth = false;
+bool hundredth = false;
+
+int counter = 0;
+
 void score(int value){
-    if (!singleton->game->Numbers->done()){ // added done into TexRect.h
-        singleton->game->Numbers->advance(); // added advanced into TexRect.h
-        singleton->redraw();
-        glutTimerFunc(2, score, value);
+
+    counter++;
+    
+    singleton->game->Numbers->advance();
+    
+    if (counter % 10 == 0){
+        singleton->game->Numbers2->advance();
     }
+    
+    if (counter % 100 == 0){
+        singleton->game->Numbers3->advance();
+    }
+    
+    if (counter % 1000 == 0){
+        singleton->game->Numbers4->advance();
+    }
+
+    glutTimerFunc(600, score, value);
 }
-//        else{
-//            singleton->redraw();
-//        }
-//        singleton->ball->jump();
-//        float bx = singleton->ball->x + singleton->ball->w/2;
-//        float by = singleton->ball->y - singleton->ball->h + 0.1;
-//        if (singleton->platform->contains(bx, by)){
-//            singleton->ball->rising = true;
-//            singleton->ball->yinc +=0.005;
-//            singleton->ball->xinc = singleton->ball->yinc;
-//            if (singleton->ball->yinc > 0.15){
-//                singleton->ball->yinc = 0.15;
-//            }
-//        }
-//        
-//        if (singleton->ball->y - singleton->ball->h < -0.99){
-//            singleton->moving = false;
-//            singleton->game_over = true;
-//            singleton->gameOver->animate();
-//            
-//        }
-//    }
-//    if (singleton->up){
-//        singleton->platform->moveUp(0.05);
-//    }
-//    if (singleton->down){
-//        singleton->platform->moveDown(0.05);
-//    }
-//    if (singleton->left){
-//        singleton->platform->moveLeft(0.05);
-//    }
-//    if (singleton->right){
-//        singleton->platform->moveRight(0.05);
-//    }
-//    
-//    if (singleton->game_over){
-//        singleton->redraw();
-//        glutTimerFunc(100, app_timer, value);
-//    }
-//    else{
-//        if (singleton->up || singleton->down || singleton->left || singleton->right || singleton->moving && !singleton->game_over){
-//            singleton->redraw();
-//            glutTimerFunc(16, app_timer, value);
-//        }
-//    }
-    
-    
-//}
+
+
 
 App::App(const char* label, int x, int y, int w, int h): GlutApp(label, x, y, w, h){
     // Initialize state variables
@@ -101,40 +73,10 @@ App::App(const char* label, int x, int y, int w, int h): GlutApp(label, x, y, w,
     game = new Game ();
     app_timer(1);
    // dinoRun(1);
-}
-/*
-void App::specialKeyPress(int key){
-    if (!game_over){
-        if (key == 100){
-            left = true;
-        }
-        if (key == 101){
-            //up = true;
-        }
-        if (key == 102){
-            right = true;
-        }
-        if (key == 103){
-            //down = true;
-        }
-    }
+    score(2);
+    game->liveChanges();
 }
 
-void App::specialKeyUp(int key){
-    if (key == 100) {
-        left = false;
-    }
-    if (key == 101) {
-        up = false;
-    }
-    if (key == 102) {
-        right = false;
-    }
-    if (key == 103) {
-        down = false;
-    }
-}
-*/
 void App::draw() {
 
     // Clear the screen
@@ -154,27 +96,13 @@ void App::draw() {
     glFlush();
     glutSwapBuffers();
 }
-/*
-void App::mouseDown(float x, float y){
-    // Update app state
-    mx = x;
-    my = y;
 
-}
-
-void App::mouseDrag(float x, float y){
-    // Update app state
-    mx = x;
-    my = y;
-
-}
-*/
 void App::idle(){
-  // game->lifeChanges();
+  game->liveChanges();
 //    // dinoRun(1);
 //   // score(1);
-//   // game->Dino->advance();
-//
+   // game->Dino->advance();
+
 }
 void App::keyUp(unsigned char key){
     if (key == ' '){
