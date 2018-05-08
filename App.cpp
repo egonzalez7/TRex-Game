@@ -8,7 +8,8 @@ void app_timer(int value){
     singleton->game->moveGround();
     singleton->game->moveCactus();
     singleton->game->moveClouds();
-   // singleton->game->Dino->advance();
+    singleton->game->Dino->animate();
+    singleton->game->Dino->advance();
     singleton->game->movePowerUp();
     singleton->game->showPowerUp();
     singleton->game->moveDino();
@@ -17,24 +18,13 @@ void app_timer(int value){
     
     glutTimerFunc(25, app_timer, value);
 
-    
-//   if (singleton->game_over){
-//        singleton->game->dino();
-//  }
-//    if (singleton->game){
+//       if (singleton->game->Game_Over->advance){
 //            singleton->game->advance();
-//    }
-//
+//}
+
   
     
 }
-//void dinoRun(int value){
-//      if (!singleton->game->Dino->done()){ // added done into TexRect.h
-//            singleton->game->Dino->advance(); // added advanced into TexRect.h
-//            singleton->redraw();
-//            glutTimerFunc(32, dinoRun, value);
-//      }
-//}
 
 bool tenth = false;
 bool hundredth = false;
@@ -42,22 +32,27 @@ bool hundredth = false;
 int counter = 0;
 
 void score(int value){
-
     counter++;
-    
+   //  singleton->game->Numbers->animate();
     singleton->game->Numbers->advance();
     
     if (counter % 10 == 0){
+     //    singleton->game->Numbers->animate();
         singleton->game->Numbers2->advance();
+
     }
     
     if (counter % 100 == 0){
+        //singleton->game->Numbers->animate();
         singleton->game->Numbers3->advance();
     }
     
     if (counter % 1000 == 0){
+         //singleton->game->Numbers->animate();
         singleton->game->Numbers4->advance();
+
     }
+
 
     glutTimerFunc(600, score, value);
 }
@@ -69,12 +64,11 @@ App::App(const char* label, int x, int y, int w, int h): GlutApp(label, x, y, w,
     singleton = this;
   
     
- game_over = false;
+    game_over = false;
     game = new Game ();
     app_timer(1);
-   // dinoRun(1);
     score(2);
-    game->liveChanges();
+   
 }
 
 void App::draw() {
@@ -98,12 +92,15 @@ void App::draw() {
 }
 
 void App::idle(){
-  game->liveChanges();
-//    // dinoRun(1);
-//   // score(1);
-   // game->Dino->advance();
+     game->liveChanges();
+    if (game->overlapping){
+        game->overlapping = true;
+         game->liveChanges();
+       // redraw();
+    }
 
 }
+
 void App::keyUp(unsigned char key){
     if (key == ' '){
         
@@ -121,5 +118,14 @@ void App::keyPress(unsigned char key) {
     if (key == ' '){
         game->dinoJump();
         
+        
+    }
+    if (key == 'p'){
+        game->pauseGame();
+        //game->Dino->stop();
+        
+   }
+    if (key == 'r') {
+        game->resumeGame();
     }
 }

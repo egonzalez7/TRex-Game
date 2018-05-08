@@ -14,8 +14,8 @@ Game::Game(){
     
     Dino = new AnimatedRect("images/dino.png",3,2, -.9,0, .5,.4 );
     
-    Ground = new TexRect("images/ground.png", -1., -0.5, 2, 0.5);
-    Ground2 = new TexRect("images/ground.png", 1, -0.5, 2.1, 0.5);
+    Ground = new TexRect("images/ground.png", -1., -0.5, 2.2, 0.5);
+    Ground2 = new TexRect("images/ground.png", 1, -0.5, 2.4, 0.5);
 
     Desert = new TexRect("images/desert.png", -1, 1.1, 2, 2);
     Desert2 = new TexRect("images/desert.png", 1, 1.1, 2.3, 2);
@@ -54,12 +54,14 @@ Game::Game(){
     canJump = true;
     
     overlapping = false;
+    pause = false;
     
     cinc = 0.05;
     
 }
 
 void Game::moveCactus(){
+    if (!pause) {
     x = Cactus1->getX();
     x2 = Cactus2->getX();
     
@@ -93,11 +95,17 @@ void Game::moveCactus(){
         Cactus1->setX(x);
         Cactus2->setX(x2);
     }
-    
+    } else {
+        x = Cactus1->getX();
+        x2 = Cactus2->getX();
+        Cactus1->setX(x);
+        Cactus2->setX(x2);
+    }
    
 
 }
 void Game::movePowerUp(){
+    if (!pause) {
     if (powerUpOn){
         x = FiestaCactus->getX();
         if(x < -1.1){
@@ -121,28 +129,37 @@ void Game::movePowerUp(){
             FiestaCactus->setX(x);
         }
     }
+    } else {
+        x = FiestaCactus->getX();
+        FiestaCactus->setX(x);
+    }
 }
 
 void Game::moveClouds(){
+    if (!pause) {
+        x = Cloud->getX();
+        x -= 0.0011;
     
-    x = Cloud->getX();
-    x -= 0.0011;
+        if (x < -1.2){
+            x = 1.1;
+        }
     
-    if (x < -1.2){
-        x = 1.1;
+        Cloud->setX(x);
+        x = Cloud2->getX();
+    
+        if (x < -1.2){
+            x = 1.1;
+        }
+        x -= 0.001;
+        Cloud2->setX(x);
+    } else {
+        x =Cloud->getX();
+        Cloud->setX(x);
     }
-    
-    Cloud->setX(x);
-    x = Cloud2->getX();
-    
-    if (x < -1.2){
-        x = 1.1;
-    }
-    x -= 0.001;
-    Cloud2->setX(x);
     
 }
 void Game::moveGround(){
+    if (!pause) {
     x = Ground->getX();
     x2 = Ground2 ->getX();
 
@@ -160,10 +177,19 @@ void Game::moveGround(){
     
     Ground->setX(x);
     Ground2->setX(x2);
+    } else {
+        x = Ground->getX();
+        x2 = Ground2 ->getX();
+        Ground2->setX(x2);
+        Ground->setX(x);
+        
+    }
 
 }
 
 void Game::moveDesert(){
+    
+    if(!pause) {
     x = Desert->getX();
     x2 = Desert2 ->getX();
     
@@ -181,7 +207,15 @@ void Game::moveDesert(){
 
     Desert->setX(x);
     Desert2->setX(x2);
+    } else {
+    x = Desert->getX();
+    x2 = Desert2 ->getX();
+    
+    Desert->setX(x);
+    Desert2->setX(x2);
     }
+    
+}
 
 void Game::dinoJump(){
     if (canJump){
@@ -198,6 +232,7 @@ void Game::dinoFall(){
     
 }
 void Game::moveDino(){
+    if  (!pause) {
     if (jumping){
         if((y < 1) & (!shouldFall)){
             y = Dino->getY();
@@ -221,37 +256,45 @@ void Game::moveDino(){
             cinc = 0.01;
         }
     }
+    }
 }
 
-
-
-//xc < xd && yd< yc conditions
 void Game::liveChanges(){
-    
     float xd, xc,yd, yc,xc2,yc2;
-    xd = Dino->getX()+ Dino->getW();
+    xd = Dino->getX()+ Dino->getW()-.17;
     yd = Dino->getY();
     xc = Cactus1->getX();
     yc = Cactus1->getY()+ Cactus1->getH();
     xc2 = Cactus2->getX();
     yc2 = Cactus2->getY()+ Cactus2->getH();
-    
+   
     if (!overlapping){
-        if (xc < xd && yd < yc){
+        std::cout<< countLives <<std::endl;
+        if ((xc < xd && yd < yc) || (xc2 < xd && yd < yc2)){
             overlapping = true;
             countLives--;
+//            while ((xc > xd && yd > yc) || (xc2 > xd && yd > yc2)){
+//               std::cout<< "HI" <<std::endl;
             std::cout<< countLives <<std::endl;
-            if (xc > xd && yd > yc){
-                overlapping = false;
+            
         }
-        
+            else{
+                  std::cout<< "HI" <<std::endl;
+            }
+
+          //  std::cout<< countLives <<std::endl;// prints out once
+       // }
+        // std::cout<< countLives <<std::endl;//prints out 2 once
     }
-    
-
-    }
-
-
+// std::cout<< countLives <<std::endl;
 }
+
+        
+
+void Game::checkLives(){
+    overlapping = false;
+}
+
 
 void Game::draw(){
     Desert2->draw();
@@ -264,28 +307,28 @@ void Game::draw(){
     Dino->draw();
     Cloud->draw();
     Cloud2->draw();
-    
     if (countLives == 3){
-       // overlapping = false;
         Life1->draw();
         Life2->draw();
         Life3->draw();
     }
     else if (countLives == 2){
-        //overlapping = false;
         Life1->draw();
         Life2->draw();
+        
     }
     else if (countLives == 1){
-        
         Life1->draw();
     }
+//    else if(countLives == 0){
+//        Game_Over->draw();
+//    }
     Numbers->draw();
     Numbers2->draw();
     Numbers3->draw();
     Numbers4->draw();
 
-     // Game_Over->draw();
+
 }
 
 void Game::reset(){
@@ -307,6 +350,14 @@ void Game::gameIsOver(){
          }
     }
 
+void Game::pauseGame(){
+    pause = true;
+}
+
+void Game::resumeGame() {
+    pause = false;
+}
+
 
 Game::~Game(){
     delete Desert;
@@ -322,5 +373,5 @@ Game::~Game(){
     for (int i = 0; i < lives.size(); i++) {
         //delete lives[i];
     }
-    //delete Game_Over;
+    delete Game_Over;
 }

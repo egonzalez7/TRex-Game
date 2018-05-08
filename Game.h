@@ -19,8 +19,7 @@ class Game{
     bool powerUpOn;
     bool jumping;
     bool canJump;
-    
-    bool overlapping;
+    bool pause;
     float cinc;
     
    public:
@@ -28,6 +27,7 @@ class Game{
     float x,x2;
     float y;
     float random;
+    bool overlapping;
     std::deque<TexRect*> lives;
     AnimatedRect* Dino;
     
@@ -70,6 +70,9 @@ class Game{
     void dinoJump();
     void dinoFall();
     void gameIsOver();
+    void pauseGame();
+    void resumeGame();
+    void checkLives();
  
     
 
