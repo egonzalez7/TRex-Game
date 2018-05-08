@@ -232,9 +232,12 @@ void Game::dinoFall(){
     
 }
 void Game::moveDino(){
+
     if  (!pause) {
+    Dino->animate();
     if (jumping){
         if((y < 1) & (!shouldFall)){
+            Dino->stop();
             y = Dino->getY();
             y += 0.02;
             Dino->setY(y);
@@ -247,6 +250,7 @@ void Game::moveDino(){
     }
     else {
         if (y > -.25){
+	    Dino->stop();
             y = Dino->getY();
             y -= 0.04;
             Dino->setY(y);
