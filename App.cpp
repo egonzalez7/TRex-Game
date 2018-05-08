@@ -8,8 +8,11 @@ void app_timer(int value){
     singleton->game->moveGround();
     singleton->game->moveCactus();
     singleton->game->moveClouds();
-    singleton->game->Dino->animate();
     singleton->game->Dino->advance();
+    singleton->game->Numbers->animate();
+    singleton->game->Numbers2->animate();
+    singleton->game->Numbers3->animate();
+    singleton->game->Numbers4->animate();
     singleton->game->movePowerUp();
     singleton->game->showPowerUp();
     singleton->game->moveDino();
@@ -33,22 +36,22 @@ int counter = 0;
 
 void score(int value){
     counter++;
-   //  singleton->game->Numbers->animate();
+
     singleton->game->Numbers->advance();
     
     if (counter % 10 == 0){
-     //    singleton->game->Numbers->animate();
+
         singleton->game->Numbers2->advance();
 
     }
     
     if (counter % 100 == 0){
-        //singleton->game->Numbers->animate();
+
         singleton->game->Numbers3->advance();
     }
     
     if (counter % 1000 == 0){
-         //singleton->game->Numbers->animate();
+
         singleton->game->Numbers4->advance();
 
     }
@@ -122,7 +125,6 @@ void App::keyPress(unsigned char key) {
     }
     if (key == 'p'){
         game->pauseGame();
-        //game->Dino->stop();
         
    }
     if (key == 'r') {
