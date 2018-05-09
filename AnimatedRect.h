@@ -43,6 +43,8 @@ public:
     void animate();
     
     void stop();
+    
+    void Reset();
    
     float getX() {
         return x;

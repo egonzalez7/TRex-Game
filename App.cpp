@@ -9,25 +9,25 @@ void app_timer(int value){
     singleton->game->moveCactus();
     singleton->game->moveClouds();
     singleton->game->Dino->advance();
+    singleton->game->movePowerUp();
+    singleton->game->showPowerUp();
+    singleton->game->moveDino();
     singleton->game->Numbers->animate();
     singleton->game->Numbers2->animate();
     singleton->game->Numbers3->animate();
     singleton->game->Numbers4->animate();
-    singleton->game->movePowerUp();
-    singleton->game->showPowerUp();
-    singleton->game->moveDino();
-    
+    singleton->game->Game_Over->animate();
+    singleton->game->Game_Over;
+    singleton->game->Game_Over->advance();
     singleton->redraw();
     
     glutTimerFunc(25, app_timer, value);
 
-//       if (singleton->game->Game_Over->advance){
-//            singleton->game->advance();
-//}
+}
 
   
     
-}
+  
 
 bool tenth = false;
 bool hundredth = false;
@@ -35,31 +35,10 @@ bool hundredth = false;
 int counter = 0;
 
 void score(int value){
-    counter++;
-
-    singleton->game->Numbers->advance();
+ singleton->game->Score();
     
-    if (counter % 10 == 0){
-
-        singleton->game->Numbers2->advance();
-
-    }
-    
-    if (counter % 100 == 0){
-
-        singleton->game->Numbers3->advance();
-    }
-    
-    if (counter % 1000 == 0){
-
-        singleton->game->Numbers4->advance();
-
-    }
-
-
-    glutTimerFunc(600, score, value);
+    glutTimerFunc(400, score, value);
 }
-
 
 
 App::App(const char* label, int x, int y, int w, int h): GlutApp(label, x, y, w, h){
@@ -95,12 +74,11 @@ void App::draw() {
 }
 
 void App::idle(){
-     game->liveChanges();
-    if (game->overlapping){
-        game->overlapping = true;
-         game->liveChanges();
-       // redraw();
-    }
+     game->livesChanges();
+  //  game->draw();
+ //   game->overlapping= true;
+   game->livesChanges2();
+  //  game->draw();
 
 }
 
@@ -129,5 +107,9 @@ void App::keyPress(unsigned char key) {
    }
     if (key == 'r') {
         game->resumeGame();
+    }
+    if (key == 's'){
+        game->reset();
+        
     }
 }

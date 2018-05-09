@@ -42,7 +42,7 @@ bool AnimatedRect::done() {
 
 
 void AnimatedRect::draw(){
-    //if (animating){
+   
         glBindTexture( GL_TEXTURE_2D, texture_map_id );
         glEnable(GL_TEXTURE_2D);
         glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
@@ -76,7 +76,7 @@ void AnimatedRect::draw(){
         glEnd();
         
         glDisable(GL_TEXTURE_2D);
-    //}
+ 
 }
 
 void AnimatedRect::incY(){
@@ -84,8 +84,8 @@ void AnimatedRect::incY(){
 }
 
 void AnimatedRect::advance(){
-    if (animating){
-	if (curr_col < cols){
+    if (animating) {
+    if (curr_col < cols){
         curr_col++;
     }
     else {
@@ -101,17 +101,17 @@ void AnimatedRect::advance(){
     
     if (curr_row == rows && curr_col == cols){
         complete = true;
+    }
+    else{
+        reset();
+    }
 }
-	else
-	{
-		reset();
-	}
 
-}
 }
 
 void AnimatedRect::reset(){
     complete = false;
+    
 }
 
 void AnimatedRect::animate(){
@@ -121,3 +121,10 @@ void AnimatedRect::animate(){
 void AnimatedRect::stop(){
     animating = false;
 }
+
+void AnimatedRect::Reset(){
+    curr_row = 1;
+    curr_col = 1;
+
+}
+

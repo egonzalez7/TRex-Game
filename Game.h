@@ -14,13 +14,12 @@ class Game{
     int countLives;
     bool gameStart;
     int countTime;
-    void reset();
     int timer;
     bool powerUpOn;
     bool jumping;
     bool canJump;
     bool pause;
-    float cinc;
+    float linc,linc2,linc3;
     
    public:
     bool shouldFall;
@@ -28,6 +27,7 @@ class Game{
     float y;
     float random;
     bool overlapping;
+    int counter;
     std::deque<TexRect*> lives;
     AnimatedRect* Dino;
     
@@ -65,15 +65,16 @@ class Game{
     void moveDesert();
     void movePowerUp();
     void showPowerUp();
-    void liveChanges();
+    void livesChanges();
+     void livesChanges2();
     void moveDino();
     void dinoJump();
     void dinoFall();
     void gameIsOver();
     void pauseGame();
     void resumeGame();
-    void checkLives();
- 
+    void Score();
+    void reset();
     
 
     

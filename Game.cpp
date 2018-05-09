@@ -12,18 +12,18 @@
 
 Game::Game(){
     
-    Dino = new AnimatedRect("images/dino.png",3,2, -.9,0, .5,.4 );
+    Dino = new AnimatedRect("images/dino.png",3,2, -.9,-.30, .5,.4 );
     
-    Ground = new TexRect("images/ground.png", -1., -0.5, 2.2, 0.5);
+    Ground = new TexRect("images/ground.png", -1., -0.5, 2.2 , 0.5);
     Ground2 = new TexRect("images/ground.png", 1, -0.5, 2.4, 0.5);
 
     Desert = new TexRect("images/desert.png", -1, 1.1, 2, 2);
     Desert2 = new TexRect("images/desert.png", 1, 1.1, 2.3, 2);
   
    
-    Cactus1 = new TexRect("images/cactus.png", 0.8, -0.3, 0.3, 0.3);
-    Cactus2 = new TexRect("images/cactus.png", 2.0, -0.3, 0.3, 0.3);
-    FiestaCactus = new TexRect("images/fiestaC.png", 1.2, -0.3, 0.3, 0.3);
+    Cactus1 = new TexRect("images/cactus.png", 0.8, -0.38, 0.3, 0.3);
+    Cactus2 = new TexRect("images/cactus.png", 2.0, -0.38, 0.3, 0.3);
+    FiestaCactus = new TexRect("images/fiestaCactus.png", 1.2, -0.38, 0.3, 0.3);
     
    
     Cloud = new TexRect("images/cloud.png", 1,.7 , .3, .3);
@@ -55,166 +55,185 @@ Game::Game(){
     
     overlapping = false;
     pause = false;
+    counter = 0;
+    linc = 0.03;
+    linc2 = 0.04;
+    linc3 = 0.05;
     
-    cinc = 0.05;
     
 }
 
 void Game::moveCactus(){
-    if (!pause) {
-    x = Cactus1->getX();
-    x2 = Cactus2->getX();
-    
-    
-    if(x < -1.1){
-        x = 1.1;
-    }
-    
-    
-    if(x2 < -1.1){
-        x2 = 2.5;
-    }
-    
-    if(countLives == 3){
-        x -= 0.01;
-        x2 -= 0.01;
-        Cactus1->setX(x);
-        Cactus2->setX(x2);
-    }
-    
-    if(countLives == 2){
-        x -= cinc;
-        x2 -= cinc;
-        Cactus1->setX(x);
-        Cactus2->setX(x2);
-    }
-    
-    if(countLives == 1){
-        x -= 0.03;
-        x2 -= 0.03;
-        Cactus1->setX(x);
-        Cactus2->setX(x2);
-    }
-    } else {
+    if (countLives != 0){
+        if (!pause) {
         x = Cactus1->getX();
         x2 = Cactus2->getX();
-        Cactus1->setX(x);
-        Cactus2->setX(x2);
-    }
-   
-
-}
-void Game::movePowerUp(){
-    if (!pause) {
-    if (powerUpOn){
-        x = FiestaCactus->getX();
+        
+        
         if(x < -1.1){
             x = 1.1;
-            timer = 0;
-            powerUpOn = false;
+        }
+        
+        
+        if(x2 < -1.1){
+            x2 = 2.5;
         }
         
         if(countLives == 3){
-            x -= 0.01;
-            FiestaCactus->setX(x);
+            x -=  linc;
+            x2 -= linc;
+            Cactus1->setX(x);
+            Cactus2->setX(x2);
         }
         
         if(countLives == 2){
-            x -= 0.02;
-            FiestaCactus->setX(x);
+            x -= linc2;
+            x2 -= linc2;
+            Cactus1->setX(x);
+            Cactus2->setX(x2);
         }
         
         if(countLives == 1){
-            x -= 0.03;
-            FiestaCactus->setX(x);
+            x -= linc3;
+            x2 -= linc3;
+            Cactus1->setX(x);
+            Cactus2->setX(x2);
+        }
+        } else {
+            x = Cactus1->getX();
+            x2 = Cactus2->getX();
+            Cactus1->setX(x);
+            Cactus2->setX(x2);
         }
     }
-    } else {
-        x = FiestaCactus->getX();
-        FiestaCactus->setX(x);
+
+}
+void Game::movePowerUp(){
+    if (countLives != 0){
+        if (!pause) {
+        if (powerUpOn){
+            x = FiestaCactus->getX();
+            if(x < -1.1){
+                x = 1.1;
+                timer = 0;
+                powerUpOn = false;
+            }
+            
+            if(countLives == 3){
+                x -= linc;
+                FiestaCactus->setX(x);
+            }
+            
+            if(countLives == 2){
+                x -= linc2;
+                FiestaCactus->setX(x);
+            }
+            
+            if(countLives == 1){
+                x -= linc3;
+                FiestaCactus->setX(x);
+            }
+        }
+        } else {
+            x = FiestaCactus->getX();
+            FiestaCactus->setX(x);
+        }
     }
 }
 
 void Game::moveClouds(){
-    if (!pause) {
-        x = Cloud->getX();
-        x -= 0.0011;
-    
-        if (x < -1.2){
-            x = 1.1;
+    if (countLives != 0){
+        if (!pause) {
+            x = Cloud->getX();
+            x -= 0.0011;
+        
+            if (x < -1.2){
+                x = 1.1;
+            }
+        
+            Cloud->setX(x);
+            x = Cloud2->getX();
+        
+            if (x < -1.2){
+                x = 1.1;
+            }
+            x -= 0.001;
+            Cloud2->setX(x);
+        } else {
+            x =Cloud->getX();
+            Cloud->setX(x);
         }
-    
-        Cloud->setX(x);
-        x = Cloud2->getX();
-    
-        if (x < -1.2){
-            x = 1.1;
-        }
-        x -= 0.001;
-        Cloud2->setX(x);
-    } else {
-        x =Cloud->getX();
-        Cloud->setX(x);
     }
-    
 }
 void Game::moveGround(){
-    if (!pause) {
-    x = Ground->getX();
-    x2 = Ground2 ->getX();
-
-    
-    if (x < -3) {
-        x = 1;
-    }
-    if(x2 < -3.00){
-        x2 = 1;
-    }
-
-    
-    x-= cinc;
-    x2-=cinc;
-    
-    Ground->setX(x);
-    Ground2->setX(x2);
-    } else {
+    if (countLives != 0){
+        if (!pause) {
         x = Ground->getX();
         x2 = Ground2 ->getX();
-        Ground2->setX(x2);
-        Ground->setX(x);
-        
-    }
 
+        
+        if (x < -3) {
+            x = 1;
+        }
+        if(x2 < -3.00){
+            x2 = 1;
+        }
+
+            if (countLives == 3){
+                x-= linc;
+                x2-= linc;
+            }
+            if (countLives == 2){
+                x-= linc2;
+                x2-=linc2;
+            }
+            
+            if (countLives == 1){
+                x-= linc3;
+                x2-= linc3;
+            }
+      
+        
+        Ground->setX(x);
+        Ground2->setX(x2);
+        } else {
+            x = Ground->getX();
+            x2 = Ground2 ->getX();
+            Ground2->setX(x2);
+            Ground->setX(x);
+            
+        }
+    }
 }
 
 void Game::moveDesert(){
-    
-    if(!pause) {
-    x = Desert->getX();
-    x2 = Desert2 ->getX();
-    
-    if (x < -3) {
-        x = 1;
-    }
-    
-    if(x2 < -3){
-        x2 = 1;
-    }
-    
-    x-= 0.0005;
-    x2-=0.0005;
-    
+     if (countLives != 0){
+        if(!pause) {
+        x = Desert->getX();
+        x2 = Desert2 ->getX();
+        
+        if (x < -3) {
+            x = 1;
+        }
+        
+        if(x2 < -3){
+            x2 = 1;
+        }
+        
+        x-= 0.0005;
+        x2-=0.0005;
+        
 
-    Desert->setX(x);
-    Desert2->setX(x2);
-    } else {
-    x = Desert->getX();
-    x2 = Desert2 ->getX();
-    
-    Desert->setX(x);
-    Desert2->setX(x2);
-    }
-    
+        Desert->setX(x);
+        Desert2->setX(x2);
+        } else {
+        x = Desert->getX();
+        x2 = Desert2 ->getX();
+        
+        Desert->setX(x);
+        Desert2->setX(x2);
+        }
+     }
 }
 
 void Game::dinoJump(){
@@ -232,72 +251,96 @@ void Game::dinoFall(){
     
 }
 void Game::moveDino(){
-
-    if  (!pause) {
-    Dino->animate();
-    if (jumping){
-        if((y < 1) & (!shouldFall)){
+    if (countLives != 0){
+        if  (!pause) {
+            Dino->animate();
+        if (jumping){
+            if((y < .05) & (!shouldFall)){
+                Dino->stop();
+                y = Dino->getY();
+                y += 0.02;
+                Dino->setY(y);
+                linc = 0.035;
+            }
+            else {
+                shouldFall = true;
+                jumping = false;
+            }
+        }
+        else {
+            if (y > -.35){
+                Dino->stop();
+                y = Dino->getY();
+                y -= 0.04;
+                Dino->setY(y);
+            }
+            else {
+                shouldFall = false;
+                linc = 0.01;
+            }
+        }
+        }
+        else{
             Dino->stop();
-            y = Dino->getY();
-            y += 0.02;
-            Dino->setY(y);
-            cinc = 0.035;
-        }
-        else {
-            shouldFall = true;
-            jumping = false;
         }
     }
-    else {
-        if (y > -.25){
-	    Dino->stop();
-            y = Dino->getY();
-            y -= 0.04;
-            Dino->setY(y);
-        }
-        else {
-            shouldFall = false;
-            cinc = 0.01;
-        }
-    }
+    else{
+        Dino->stop();
     }
 }
 
-void Game::liveChanges(){
-    float xd, xc,yd, yc,xc2,yc2;
+void Game::livesChanges(){
+    
+    float xd, xc,yd, yc,xc2,yc2,xfc,yfc;
     xd = Dino->getX()+ Dino->getW()-.17;
     yd = Dino->getY();
     xc = Cactus1->getX();
-    yc = Cactus1->getY()+ Cactus1->getH();
+    yc = Cactus1->getY()+ Cactus1->getH()-.17;
     xc2 = Cactus2->getX();
-    yc2 = Cactus2->getY()+ Cactus2->getH();
+    yc2 = Cactus2->getY()+ Cactus2->getH()-.17;
+    xfc = FiestaCactus->getX();
+    yfc =FiestaCactus->getY()+ FiestaCactus->getH() -.17;
    
     if (!overlapping){
-        std::cout<< countLives <<std::endl;
-        if ((xc < xd && yd < yc) || (xc2 < xd && yd < yc2)){
-            overlapping = true;
-            countLives--;
-//            while ((xc > xd && yd > yc) || (xc2 > xd && yd > yc2)){
-//               std::cout<< "HI" <<std::endl;
-            std::cout<< countLives <<std::endl;
-            
-        }
-            else{
-                  std::cout<< "HI" <<std::endl;
-            }
-
-          //  std::cout<< countLives <<std::endl;// prints out once
-       // }
-        // std::cout<< countLives <<std::endl;//prints out 2 once
-    }
-// std::cout<< countLives <<std::endl;
-}
 
         
+        if ((xc < xd && yd <= yc) || (xc2 < xd && yd <= yc2)) {
+            overlapping = true;
+            countLives--;
+            powerUpOn = true;
+            
+        }
+        if (xfc < xd && yd <= yfc ) {
+            overlapping = true;
+            countLives++;
+        }
 
-void Game::checkLives(){
-    overlapping = false;
+    }
+
 }
+
+void Game::livesChanges2(){
+    //moveCactus();
+    float xd, xc,yd, yc,xc2,yc2,xfc,yfc;
+    xd = Dino->getX()+ Dino->getW()-.17;
+    yd = Dino->getY();
+    xc = Cactus1->getX();
+    yc = Cactus1->getY()+ Cactus1->getH()-.17;
+    xc2 = Cactus2->getX();
+    yc2 = Cactus2->getY()+ Cactus2->getH()-.17;
+    xfc = FiestaCactus->getX();
+    yfc =FiestaCactus->getY()+ FiestaCactus->getH() -.17;
+    if (overlapping){
+    if (xd >  xc && yd > yc2 ){
+         overlapping = false;
+        }
+        if (xd >  xfc && yd > yfc ){
+             overlapping = false;
+        }
+    }
+}
+
+
 
 
 void Game::draw(){
@@ -324,9 +367,9 @@ void Game::draw(){
     else if (countLives == 1){
         Life1->draw();
     }
-//    else if(countLives == 0){
-//        Game_Over->draw();
-//    }
+    else if(countLives == 0){
+        Game_Over->draw();
+    }
     Numbers->draw();
     Numbers2->draw();
     Numbers3->draw();
@@ -335,9 +378,6 @@ void Game::draw(){
 
 }
 
-void Game::reset(){
-    
-}
 void Game::showPowerUp(){
     random = rand();
     for(int i = 0; i < 1000; i++){
@@ -357,14 +397,57 @@ void Game::gameIsOver(){
 void Game::pauseGame(){
     pause = true;
 }
+void Game::reset(){
+    countLives = 3;
+    counter = 0;
+    Numbers->Reset();
+    Numbers2->Reset();
+    Numbers3->Reset();
+    Numbers4->Reset();
+     Score();
+
+ }
 
 void Game::resumeGame() {
     pause = false;
+}
+void Game::Score() {
+    if (countLives!=0){
+        if (!pause){
+        counter++;
+       Numbers->advance();
+
+      if (counter % 10 == 0){
+            Numbers2->advance();
+            
+        }
+        
+        if (counter % 100 == 0){
+            
+           Numbers3->advance();
+        }
+        
+        if (counter % 1000 == 0){
+           Numbers4->advance();
+            
+        }
+           }
+    }
+    
+    else{
+         Numbers->stop();
+         Numbers2->stop();
+         Numbers3->stop();
+         Numbers4->stop();
+    }
 }
 
 
 Game::~Game(){
     delete Desert;
+    delete Desert2;
+    delete Ground;
+    delete Ground2;
     delete Cactus1;
     delete Cactus2;
     delete FiestaCactus;
@@ -374,8 +457,5 @@ Game::~Game(){
     delete Life1;
     delete Life2;
     delete Life3;
-    for (int i = 0; i < lives.size(); i++) {
-        //delete lives[i];
-    }
     delete Game_Over;
 }
